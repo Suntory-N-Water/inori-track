@@ -1,8 +1,7 @@
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import LiveCheckBoxForm from '@/components/features/live/LiveCheckBoxForm';
 import { liveNames } from '@/data';
-import { fireEvent, render, screen, within } from '@testing-library/react';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { vi } from 'vitest';
 
 // モック関数を作成
 const pushMock = vi.fn();
@@ -61,7 +60,9 @@ describe('LiveCheckBoxForm tests', () => {
     const button = screen.getByRole('button', { name: '会場を選択する' });
     fireEvent.click(button);
 
-    expect(pushMock).toHaveBeenCalledWith('/venue?live_id=1st-live-ready-steady-go');
+    expect(pushMock).toHaveBeenCalledWith(
+      '/venue?live_id=1st-live-ready-steady-go',
+    );
   });
 
   it.skip('live-tour-2024-heart-bookmarkを選択した状態でボタンを押すとポップアップが表示されること', () => {
@@ -92,10 +93,14 @@ describe('LiveCheckBoxForm tests', () => {
     fireEvent.click(button);
 
     const dialog = screen.getByRole('alertdialog');
-    const confirmButton = within(dialog).getByRole('button', { name: '会場を選択する' });
+    const confirmButton = within(dialog).getByRole('button', {
+      name: '会場を選択する',
+    });
     fireEvent.click(confirmButton);
 
-    expect(pushMock).toHaveBeenCalledWith('/venue?live_id=live-tour-2024-heart-bookmark');
+    expect(pushMock).toHaveBeenCalledWith(
+      '/venue?live_id=live-tour-2024-heart-bookmark',
+    );
   });
 
   it.skip('ポップアップで"選び直す"をクリックするとポップアップが閉じること', () => {
@@ -110,11 +115,12 @@ describe('LiveCheckBoxForm tests', () => {
     let dialog = screen.getByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
 
-    const cancelButton = within(dialog).getByRole('button', { name: '選び直す' });
+    const cancelButton = within(dialog).getByRole('button', {
+      name: '選び直す',
+    });
     fireEvent.click(cancelButton);
 
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
-    dialog = screen.queryByRole('alertdialog')!;
+    dialog = screen.queryByRole('alertdialog') as HTMLElement;
     expect(dialog).not.toBeInTheDocument();
   });
 
@@ -131,7 +137,9 @@ describe('LiveCheckBoxForm tests', () => {
     const header = screen.getByText('水瀬いのり個人名義');
     expect(header).toBeInTheDocument();
 
-    const inoriMinaseLives = liveNames.filter((live) => live.liveType === '水瀬いのり個人名義');
+    const inoriMinaseLives = liveNames.filter(
+      (live) => live.liveType === '水瀬いのり個人名義',
+    );
 
     for (const live of inoriMinaseLives) {
       const checkbox = screen.getByLabelText(live.name);
@@ -145,7 +153,9 @@ describe('LiveCheckBoxForm tests', () => {
     const header = screen.getByText('町民集会');
     expect(header).toBeInTheDocument();
 
-    const townMeetingLives = liveNames.filter((live) => live.liveType === '町民集会');
+    const townMeetingLives = liveNames.filter(
+      (live) => live.liveType === '町民集会',
+    );
 
     for (const live of townMeetingLives) {
       const checkbox = screen.getByLabelText(live.name);

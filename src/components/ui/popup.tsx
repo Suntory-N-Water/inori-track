@@ -1,3 +1,4 @@
+import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -7,7 +8,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
 } from '@/components/ui/alert-dialog';
-import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
 
 type AlertDialogProps = {
   isOpen: boolean;

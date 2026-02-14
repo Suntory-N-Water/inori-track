@@ -1,11 +1,11 @@
 export const dynamic = 'force-dynamic';
 
-import ResultInfo from '@/components/features/result/ResultInfo';
-import { songs } from '@/data';
-import { getResultSongs } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
+import ResultInfo from '@/components/features/result/ResultInfo';
+import { songs } from '@/data';
+import { getResultSongs } from '@/lib/utils';
 
 type Props = {
   searchParams?: Promise<{
@@ -26,7 +26,9 @@ async function currentUrl(): Promise<string> {
   return prefix + host;
 }
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
   const params = await searchParams;
   const unsungSongs = getResultSongs({ searchParams: params });
   const apiUrl = await currentUrl();
@@ -73,7 +75,9 @@ export default async function Home({ searchParams }: Props) {
       {unsungSongs.length === 0 ? (
         ''
       ) : (
-        <h1 className='pb-4 font-bold text-2xl'>ライブで聴いたことのない曲一覧♪✨️</h1>
+        <h1 className='pb-4 font-bold text-2xl'>
+          ライブで聴いたことのない曲一覧♪✨️
+        </h1>
       )}
       <ResultInfo params={unsungSongs} url={url} />
     </div>

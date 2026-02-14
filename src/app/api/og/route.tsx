@@ -1,7 +1,7 @@
-import { songs } from '@/data';
 import { ImageResponse } from 'next/og';
 import type { NextRequest } from 'next/server';
 import { z } from 'zod';
+import { songs } from '@/data';
 
 export const runtime = 'edge';
 
@@ -14,7 +14,9 @@ const querySchema = z.object({
     .string()
     .transform((val) => Number.parseInt(val, 10))
     .refine((val) => !Number.isNaN(val), { message: 'Count must be a number' })
-    .refine((val) => val >= 0 && val < songs.length, { message: 'Count out of range' }),
+    .refine((val) => val >= 0 && val < songs.length, {
+      message: 'Count out of range',
+    }),
 });
 
 const OgImage = ({ count }: OgImageProps) => (
@@ -100,9 +102,12 @@ export async function GET(request: NextRequest) {
     const parseResult = querySchema.safeParse(queryParams);
 
     if (!parseResult.success) {
-      return new Response(`入力値が不正です。設定値：${searchParams.get('count')}`, {
-        status: 400,
-      });
+      return new Response(
+        `入力値が不正です。設定値：${searchParams.get('count')}`,
+        {
+          status: 400,
+        },
+      );
     }
 
     const { count } = parseResult.data;

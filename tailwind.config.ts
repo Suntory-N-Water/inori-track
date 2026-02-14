@@ -99,7 +99,8 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in-bottom': 'fade-in-bottom 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000)',
+        'fade-in-bottom':
+          'fade-in-bottom 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000)',
       },
     },
   },

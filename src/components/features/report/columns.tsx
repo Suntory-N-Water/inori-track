@@ -1,5 +1,5 @@
-import type { SongInfo } from '@/types';
 import type { ColumnDef } from '@tanstack/react-table';
+import type { SongInfo } from '@/types';
 
 export const columns: ColumnDef<SongInfo>[] = [
   { accessorKey: 'name', header: '曲名' },

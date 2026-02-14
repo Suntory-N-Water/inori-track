@@ -1,11 +1,11 @@
 'use client';
-import { useForm } from 'react-hook-form';
-import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import type { FormValues, LiveAndVenuesInfo, Venue } from '@/types';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import CheckBoxList from '@/components/ui/CheckBoxForm';
+import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import type { FormValues, LiveAndVenuesInfo, Venue } from '@/types';
 
 type Props = {
   params: LiveAndVenuesInfo[];
@@ -39,7 +39,9 @@ export default function VenueCheckBoxForm({ params }: Props) {
               <fieldset key={param.liveName} aria-label={param.liveName}>
                 <div key={param.liveName}>
                   <div className='mt-4 mb-2'>
-                    <FormLabel className='font-bold text-xl'>{param.liveName}</FormLabel>
+                    <FormLabel className='font-bold text-xl'>
+                      {param.liveName}
+                    </FormLabel>
                   </div>
                   <CheckBoxList<Venue>
                     form={form}

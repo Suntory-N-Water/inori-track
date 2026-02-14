@@ -1,15 +1,15 @@
 'use client';
 
-import CheckBoxList from '@/components/ui/CheckBoxForm';
-import { Button } from '@/components/ui/button';
-import { Form, FormItem, FormLabel } from '@/components/ui/form';
-import Popup from '@/components/ui/popup';
-import type { FormValues, LiveName } from '@/types';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import CheckBoxList from '@/components/ui/CheckBoxForm';
+import { Form, FormItem, FormLabel } from '@/components/ui/form';
+import Popup from '@/components/ui/popup';
+import type { FormValues, LiveName } from '@/types';
 
 type Props = {
   params: LiveName[];
@@ -38,7 +38,8 @@ export default function LiveCheckBoxForm({ params }: Props) {
     e.preventDefault();
     const selectedItems = form.watch('items');
     // ネタバレ防止対象のライブが選択されているかチェック
-    const hasAlertLive = spoilerVenueId && selectedItems.includes(spoilerVenueId);
+    const hasAlertLive =
+      spoilerVenueId && selectedItems.includes(spoilerVenueId);
 
     if (hasAlertLive) {
       // ネタバレ防止対象のライブが選択されていた場合、Popup を表示
@@ -70,14 +71,20 @@ export default function LiveCheckBoxForm({ params }: Props) {
     setAlertDialogOpen(false);
   }
 
-  const inoriMinaseLives = params.filter((param) => param.liveType === '水瀬いのり個人名義');
-  const townMeetingLives = params.filter((param) => param.liveType === '町民集会');
+  const inoriMinaseLives = params.filter(
+    (param) => param.liveType === '水瀬いのり個人名義',
+  );
+  const townMeetingLives = params.filter(
+    (param) => param.liveType === '町民集会',
+  );
 
   return (
     <Form {...form}>
       <FormItem>
         <div className='mt-4 mb-2'>
-          <FormLabel className='font-bold text-xl'>水瀬いのり個人名義</FormLabel>
+          <FormLabel className='font-bold text-xl'>
+            水瀬いのり個人名義
+          </FormLabel>
         </div>
         <CheckBoxList<LiveName>
           form={form}

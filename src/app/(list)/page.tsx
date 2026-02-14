@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { liveNames } from '@/data';
-import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -20,7 +20,9 @@ export default function Home() {
           </Link>
         </div>
         <div className='w-full bg-white rounded-t-3xl flex-1'>
-          <h1 className='text-xl md:text-2xl font-bold text-primary-foreground'>よくある質問</h1>
+          <h1 className='text-xl md:text-2xl font-bold text-primary-foreground'>
+            よくある質問
+          </h1>
           <div className='py-2'>
             <strong>Q. ネタバレは含みますか？</strong>
             <p className='py-1'>

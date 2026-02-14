@@ -9,11 +9,14 @@ export default defineConfig({
     environment: 'happy-dom',
     setupFiles: './vitest-setup.ts',
     // e2eテストは除外
-    include: ['src/test/app/**/*.test.tsx', 'src/test/components/**/*.test.tsx'],
+    include: [
+      'src/test/app/**/*.test.tsx',
+      'src/test/components/**/*.test.tsx',
+    ],
   },
   resolve: {
     alias: {
-      // biome-ignore lint/style/useTemplate: <explanation>
+      // biome-ignore lint/style/useTemplate: <explanation> --- IGNORE ---
       '@': __dirname + '/src',
     },
   },

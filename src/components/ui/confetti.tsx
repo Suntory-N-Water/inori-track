@@ -18,11 +18,15 @@ const useInterval = (callback: () => void) => {
 };
 
 export default function Confetti() {
-  const { reward: rewardLeft, isAnimating: isAnimatingLeft } = useReward('rewardLeft', 'confetti', {
-    angle: 75,
-    position: 'absolute',
-    elementCount: 100,
-  });
+  const { reward: rewardLeft, isAnimating: isAnimatingLeft } = useReward(
+    'rewardLeft',
+    'confetti',
+    {
+      angle: 75,
+      position: 'absolute',
+      elementCount: 100,
+    },
+  );
   const { reward: rewardRight, isAnimating: isAnimatingRight } = useReward(
     'rewardRight',
     'confetti',
@@ -41,7 +45,11 @@ export default function Confetti() {
   });
 
   return (
-    <div className='fixed bottom-0 left-0 right-0 flex justify-between' aria-label='confetti'>
+    <div
+      className='fixed bottom-0 left-0 right-0 flex justify-between'
+      role='img'
+      aria-label='confetti'
+    >
       <span id='rewardLeft' />
       <span id='rewardRight' />
     </div>

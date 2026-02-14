@@ -1,5 +1,13 @@
 'use client';
 
+import {
+  type ColumnFiltersState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
+import * as React from 'react';
 import { Input } from '@/components/ui/input';
 import {
   Table,
@@ -10,14 +18,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import type { SongInfo } from '@/types';
-import {
-  type ColumnFiltersState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-import * as React from 'react';
 
 import { columns } from './columns';
 
@@ -26,7 +26,9 @@ type Props = {
 };
 
 export function SongsDataTable({ data }: Props) {
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    [],
+  );
 
   const table = useReactTable({
     data,
@@ -45,7 +47,9 @@ export function SongsDataTable({ data }: Props) {
         <Input
           placeholder='夢のつぼみ...'
           value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+          onChange={(event) =>
+            table.getColumn('name')?.setFilterValue(event.target.value)
+          }
           className='max-w-sm'
         />
       </div>
@@ -59,12 +63,17 @@ export function SongsDataTable({ data }: Props) {
                     key={header.id}
                     className={
                       // 見出しセルが透けないよう bg-white などで固定
-                      header.column.id === 'name' ? 'sticky left-0 z-20 bg-white' : ''
+                      header.column.id === 'name'
+                        ? 'sticky left-0 z-20 bg-white'
+                        : ''
                     }
                   >
                     {header.isPlaceholder
                       ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -90,7 +99,10 @@ export function SongsDataTable({ data }: Props) {
                             : ''
                         }
                       >
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>
@@ -98,7 +110,10 @@ export function SongsDataTable({ data }: Props) {
               })
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className='h-24 text-center'>
+                <TableCell
+                  colSpan={columns.length}
+                  className='h-24 text-center'
+                >
                   No results. - お探しの曲が見つかりませんでした🤔
                 </TableCell>
               </TableRow>

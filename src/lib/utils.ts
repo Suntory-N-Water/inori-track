@@ -1,8 +1,8 @@
-import { songs, songsSung, venues } from '@/data';
-import type { SongInfo } from '@/types';
 import { type ClassValue, clsx } from 'clsx';
 import { notFound } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import { songs, songsSung, venues } from '@/data';
+import type { SongInfo } from '@/types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -44,7 +44,9 @@ export function getSongsData(queryParams: { venue_id?: string }): SongInfo[] {
     throw new Error('会場IDが指定されていません');
   }
   // ユーザーが参加した会場IDの配列を生成し、Set化（パフォーマンス改善）
-  const participatedVenueIdsSet = new Set(queryParams.venue_id.split(',').map((id) => id.trim()));
+  const participatedVenueIdsSet = new Set(
+    queryParams.venue_id.split(',').map((id) => id.trim()),
+  );
 
   // songsSung のデータから、歌唱が行われたすべての会場IDの集合を取得
   const allVenueIdsInSongs = new Set(songsSung.map((record) => record.venueId));

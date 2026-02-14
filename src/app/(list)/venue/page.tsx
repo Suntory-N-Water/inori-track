@@ -1,9 +1,9 @@
 export const dynamic = 'force-dynamic';
 
+import { notFound } from 'next/navigation';
 import VenueCheckBoxForm from '@/components/features/venue/VenueCheckBoxForm';
 import { liveNames, venues } from '@/data';
 import type { LiveAndVenuesInfo } from '@/types';
-import { notFound } from 'next/navigation';
 
 type Props = {
   searchParams?: Promise<{
