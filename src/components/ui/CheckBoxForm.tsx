@@ -1,6 +1,11 @@
-import { Checkbox } from '@/components/ui/checkbox';
-import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import type { UseFormReturn } from 'react-hook-form';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from '@/components/ui/form';
 
 type FormValues = {
   items: string[];
@@ -36,7 +41,11 @@ export default function CheckBoxList<TItem>({
                   onCheckedChange={(checked) =>
                     checked
                       ? field.onChange([...field.value, itemKey(item)])
-                      : field.onChange(field.value?.filter((value) => value !== itemKey(item)))
+                      : field.onChange(
+                          field.value?.filter(
+                            (value) => value !== itemKey(item),
+                          ),
+                        )
                   }
                 />
               </FormControl>

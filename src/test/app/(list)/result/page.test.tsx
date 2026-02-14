@@ -1,8 +1,8 @@
+import { render, screen } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import ResultInfo from '@/components/features/result/ResultInfo';
 import { songs } from '@/data';
 import { getResultSongs } from '@/lib/utils';
-import { render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const notFoundMock = vi.fn();
 vi.mock('next/navigation', () => ({
@@ -57,7 +57,9 @@ describe('ResultInfoのテスト', () => {
     const tweetText = `あなたが聴いたことのない曲は${songs.length}曲中、${unsungSongs.length}曲でした！\r\n${mockUrl}\r\n#いのなび`;
     const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
 
-    const linkElement = screen.getByRole('link', { name: '結果をX(Twitter)で共有する' });
+    const linkElement = screen.getByRole('link', {
+      name: '結果をX(Twitter)で共有する',
+    });
     expect(linkElement).toHaveAttribute('href', tweetUrl);
   });
 

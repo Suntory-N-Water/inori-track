@@ -4,7 +4,9 @@ const nextConfig = {
     return [
       {
         source: '/google8af5ef54236f0837.html',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
+        ],
       },
     ];
   },

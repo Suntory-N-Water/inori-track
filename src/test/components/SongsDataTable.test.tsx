@@ -1,8 +1,8 @@
-import { SongsDataTable } from '@/components/features/report/SongsDataTable';
-import type { SongInfo } from '@/types';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+import { SongsDataTable } from '@/components/features/report/SongsDataTable';
+import type { SongInfo } from '@/types';
 
 describe('SongsDataTable', () => {
   const mockData: SongInfo[] = [

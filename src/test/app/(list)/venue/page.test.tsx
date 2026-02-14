@@ -1,7 +1,7 @@
-import VenueCheckBoxForm from '@/components/features/venue/VenueCheckBoxForm';
-import type { LiveAndVenuesInfo } from '@/types';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import VenueCheckBoxForm from '@/components/features/venue/VenueCheckBoxForm';
+import type { LiveAndVenuesInfo } from '@/types';
 
 // モック関数を作成
 const pushMock = vi.fn();
@@ -45,7 +45,9 @@ describe('LiveCheckBoxFormのテスト', () => {
 
     // ライブ名が表示されていることを確認
     expect(screen.getByText('LIVE TOUR 2018 BLUE COMPASS')).toBeInTheDocument();
-    expect(screen.getByText('LIVE TOUR 2019 Catch the Rainbow!')).toBeInTheDocument();
+    expect(
+      screen.getByText('LIVE TOUR 2019 Catch the Rainbow!'),
+    ).toBeInTheDocument();
 
     // 会場が表示されていることを確認
     for (const liveInfo of params) {
@@ -149,10 +151,14 @@ describe('LiveCheckBoxFormのテスト', () => {
 
     for (const liveInfo of params) {
       // ライブセクションを取得
-      const liveSection = screen.getByRole('group', { name: liveInfo.liveName });
+      const liveSection = screen.getByRole('group', {
+        name: liveInfo.liveName,
+      });
 
       for (const venue of liveInfo.venues) {
-        expect(within(liveSection).getByLabelText(venue.name)).toBeInTheDocument();
+        expect(
+          within(liveSection).getByLabelText(venue.name),
+        ).toBeInTheDocument();
       }
     }
   });

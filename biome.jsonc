@@ -1,0 +1,93 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.15/schema.json",
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "**/*.{cjs,mjs,cts,mts,js,jsx,ts,tsx}",
+      "**/*.json",
+      "**/*.jsonc",
+      "**/*.html",
+      "!node_modules",
+      "!**/.astro",
+      "!**/dist",
+      "!**/metadata"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": true,
+    "attributePosition": "auto",
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "includes": [
+      "**/*.{cjs,mjs,cts,mts,js,jsx,ts,tsx}",
+      "**/*.json",
+      "**/*.jsonc",
+      "**/*.html",
+      "!node_modules",
+      "!**/dist"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "suspicious": {
+        // any 関連
+        "noExplicitAny": "error",
+        "noImplicitAnyLet": "error",
+        "noEvolvingTypes": "error"
+      },
+      "style": {
+        // Interface じゃなくて type を使う
+        "useConsistentTypeDefinitions": {
+          "level": "warn",
+          "options": {
+            "style": "type"
+          }
+        },
+        "noParameterAssign": "error",
+        "useConsistentArrayType": "error",
+        "useArrayLiterals": "error",
+        // if 文でブロックを強制する
+        "useBlockStatements": "error"
+      },
+      "nursery": {
+        "noUnnecessaryConditions": "error"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "html": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 80
+    }
+  }
+}
