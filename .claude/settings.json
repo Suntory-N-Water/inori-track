@@ -1,0 +1,90 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Grep",
+      "Glob",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(echo:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(gh:*)",
+      "Bash(jq:*)",
+      "Bash(pinact run:*)",
+      "Bash(actionlint:*)",
+      "Bash(ghalint run:*)",
+      "Bash(zizmor:*)",
+      "Bash(agent-browser:*)",
+      "Skill(managing-git-github-workflow)",
+      "Skill(agent-browser)",
+      "Bash(pnpm list:*)",
+      "Bash(python3:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Read(.env)",
+      "Read(.dev.vars)",
+      "Write(.env*)",
+      "Bash(wget:*)",
+      "NotebookEdit",
+      "NotebookRead"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(bun add:*)",
+      "Bash(bun remove:*)",
+      "WebFetch",
+      "WebSearch",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(rm:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/multi-command-check.ts -c format,lint:ai,type-check:ai"
+          },
+          {
+            "type": "command",
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/fix-brackets.ts"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/no-restricted-edit.ts"
+          }
+        ]
+      },
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/web-fetch-advice.ts"
+          }
+        ]
+      }
+    ]
+  },
+  "plansDirectory": ".claude/plans"
+}

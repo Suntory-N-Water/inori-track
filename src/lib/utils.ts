@@ -22,7 +22,7 @@ export function getResultSongs({ searchParams }: Props) {
     notFound();
   }
 
-  // venue_id をカンマで区切って配列に変換し、Set化（パフォーマンス改善）
+  // venue_id をカンマで区切って配列に変換し、Set化(パフォーマンス改善)
   const venueIdsSet = new Set(venueIdsQuery.split(','));
 
   const sungSongIds = songsSung
@@ -36,14 +36,14 @@ export function getResultSongs({ searchParams }: Props) {
 
 /**
  * クエリパラメータから参加会場IDに基づいて、SongsDataTable に渡すデータを生成する関数
- * @param queryParams - クエリパラメータ（例: { venue_id: "21,22,23" }）
+ * @param queryParams - クエリパラメータ(例: { venue_id: "21,22,23" })
  * @returns SongInfo[] - テーブル表示用のデータ配列
  */
 export function getSongsData(queryParams: { venue_id?: string }): SongInfo[] {
   if (!queryParams.venue_id) {
     throw new Error('会場IDが指定されていません');
   }
-  // ユーザーが参加した会場IDの配列を生成し、Set化（パフォーマンス改善）
+  // ユーザーが参加した会場IDの配列を生成し、Set化(パフォーマンス改善)
   const participatedVenueIdsSet = new Set(
     queryParams.venue_id.split(',').map((id) => id.trim()),
   );
@@ -55,7 +55,7 @@ export function getSongsData(queryParams: { venue_id?: string }): SongInfo[] {
     .filter((venue) => allVenueIdsInSongs.has(venue.id))
     .sort((a, b) => Number(a.id) - Number(b.id));
 
-  // songsSung を効率的に検索できるようにMap化（パフォーマンス改善）
+  // songsSung を効率的に検索できるようにMap化(パフォーマンス改善)
   // キー: "songId-venueId", 値: true
   const songsSungMap = new Map<string, boolean>();
   for (const record of songsSung) {
@@ -73,7 +73,7 @@ export function getSongsData(queryParams: { venue_id?: string }): SongInfo[] {
 
     // for...of を使用してループ処理を実施
     for (const venue of relevantVenues) {
-      // venue.json の shortId プロパティを利用してキーを生成（存在しなければ name をフォールバック）
+      // venue.json の shortId プロパティを利用してキーを生成(存在しなければ name をフォールバック)
       const rawKey = venue.shortId ? venue.shortId : venue.name;
       const isSung = songsSungMap.has(`${song.id}-${venue.id}`);
       if (participatedVenueIdsSet.has(venue.id) && isSung) {
