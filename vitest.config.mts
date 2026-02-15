@@ -12,6 +12,7 @@ export default defineConfig({
     include: [
       'src/test/app/**/*.test.tsx',
       'src/test/components/**/*.test.tsx',
+      'src/test/lib/**/*.test.ts',
     ],
   },
   resolve: {

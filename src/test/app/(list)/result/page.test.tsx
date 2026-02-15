@@ -20,8 +20,8 @@ describe('ResultInfoのテスト', () => {
 
   it('未聴の曲数と総曲数が正しく表示されること', () => {
     const unsungSongs = [
-      { id: '1', title: '未聴の曲1' },
-      { id: '2', title: '未聴の曲2' },
+      { id: 'mock-song-1', title: '未聴の曲1' },
+      { id: 'mock-song-2', title: '未聴の曲2' },
     ];
 
     render(<ResultInfo params={unsungSongs} url={mockUrl} />);
@@ -35,8 +35,8 @@ describe('ResultInfoのテスト', () => {
 
   it('未聴の曲のタイトルがリストで正しく表示されること', () => {
     const unsungSongs = [
-      { id: '1', title: '未聴の曲1' },
-      { id: '2', title: '未聴の曲2' },
+      { id: 'mock-song-1', title: '未聴の曲1' },
+      { id: 'mock-song-2', title: '未聴の曲2' },
     ];
 
     render(<ResultInfo params={unsungSongs} url={mockUrl} />);
@@ -48,8 +48,8 @@ describe('ResultInfoのテスト', () => {
 
   it('"結果をX(Twitter)で共有する"ボタンが正しいリンクを持つこと', () => {
     const unsungSongs = [
-      { id: '1', title: '未聴の曲1' },
-      { id: '2', title: '未聴の曲2' },
+      { id: 'mock-song-1', title: '未聴の曲1' },
+      { id: 'mock-song-2', title: '未聴の曲2' },
     ];
 
     render(<ResultInfo params={unsungSongs} url={mockUrl} />);
@@ -65,8 +65,8 @@ describe('ResultInfoのテスト', () => {
 
   it('"最初に戻る"ボタンがホームページにリンクされていること', () => {
     const unsungSongs = [
-      { id: '1', title: '未聴の曲1' },
-      { id: '2', title: '未聴の曲2' },
+      { id: 'mock-song-1', title: '未聴の曲1' },
+      { id: 'mock-song-2', title: '未聴の曲2' },
     ];
 
     render(<ResultInfo params={unsungSongs} url={mockUrl} />);
@@ -86,8 +86,6 @@ describe('ResultInfoのテスト', () => {
   });
 
   it('結果ページのURLが正しく生成されること', () => {
-    process.env.HTTP_PREFIX = 'http://';
-
     const searchParams = { venue_id: '1,2' };
     const unsungSongs = getResultSongs({ searchParams });
     const apiUrl = 'localhost:3000';

@@ -3,20 +3,23 @@ import { notFound } from 'next/navigation';
 import { SongsDataTable } from '@/components/features/report/SongsDataTable';
 import { Button } from '@/components/ui/button';
 import { getSongsData } from '@/lib/utils';
+import { encodeVenueIds, resolveVenueIdsFromParams } from '@/lib/venueEncoding';
 
 type Props = {
   searchParams?: Promise<{
+    v?: string;
     venue_id?: string;
   }>;
 };
 
 export default async function Home({ searchParams }: Props) {
   const params = await searchParams;
-  if (!params?.venue_id) {
+  const venueIdsCsv = resolveVenueIdsFromParams(params ?? {});
+  if (!venueIdsCsv) {
     notFound();
   }
 
-  const data = getSongsData({ venue_id: params.venue_id });
+  const data = getSongsData(params ?? {});
 
   return (
     <div className='relative min-h-screen flex flex-col'>
@@ -32,7 +35,7 @@ export default async function Home({ searchParams }: Props) {
         </div>
       </div>
       <div className='py-2'>
-        <Link href={`result?venue_id=${params.venue_id}`}>
+        <Link href={`result?v=${encodeVenueIds(venueIdsCsv.split(','))}`}>
           <Button
             variant='default'
             className='w-full items-center justify-center p-6 my-2 tracking-tight'

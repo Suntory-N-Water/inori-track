@@ -1,3 +1,4 @@
+/** ライブ名マスタデータ */
 export const liveNames = [
   {
     id: '1st-live-ready-steady-go',
@@ -74,4 +75,6 @@ export const liveNames = [
     name: 'Inori Minase 10th ANNIVERSARY LIVE TOUR Travel Record',
     liveType: '水瀬いのり個人名義',
   },
-];
+] as const;
+
+export type LiveNameId = (typeof liveNames)[number]['id'];

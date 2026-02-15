@@ -6,9 +6,11 @@ import { notFound } from 'next/navigation';
 import ResultInfo from '@/components/features/result/ResultInfo';
 import { songs } from '@/data';
 import { getResultSongs } from '@/lib/utils';
+import { encodeVenueIds, resolveVenueIdsFromParams } from '@/lib/venueEncoding';
 
 type Props = {
   searchParams?: Promise<{
+    v?: string;
     venue_id?: string;
   }>;
 };
@@ -19,11 +21,8 @@ async function currentUrl(): Promise<string> {
   if (!host) {
     throw new Error('host is not defined');
   }
-  const prefix = process.env.HTTP_PREFIX;
-  if (!prefix) {
-    throw new Error('HTTP_PREFIX is not set');
-  }
-  return prefix + host;
+  const proto = headersList.get('x-forwarded-proto') ?? 'http';
+  return `${proto}://${host}`;
 }
 
 export async function generateMetadata({
@@ -66,9 +65,11 @@ export default async function Home({ searchParams }: Props) {
   }
 
   const pathname = '/result';
-  const queryString = new URLSearchParams(params).toString();
   const apiUrl = await currentUrl();
-  const url = `${apiUrl + pathname}?${queryString}`;
+  // 共有URLは常に短縮形(v=)で生成する
+  const venueIdsCsv = resolveVenueIdsFromParams(params ?? {});
+  const encoded = encodeVenueIds(venueIdsCsv.split(','));
+  const url = `${apiUrl + pathname}?v=${encoded}`;
 
   return (
     <div>
