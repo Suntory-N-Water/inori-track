@@ -26,8 +26,8 @@ export function getResultSongs({ searchParams }: Props) {
   const venueIdsSet = new Set(venueIdsQuery.split(','));
 
   const sungSongIds = songsSung
-    .filter((songSung) => venueIdsSet.has(songSung.venueId))
-    .map((songSung) => songSung.songId);
+    .filter((setlist) => venueIdsSet.has(setlist.venueId))
+    .flatMap((setlist) => setlist.songIds);
 
   const uniqueSungSongIds = new Set(sungSongIds);
   const unsungSongs = songs.filter((song) => !uniqueSungSongIds.has(song.id));
@@ -49,39 +49,40 @@ export function getSongsData(queryParams: { venue_id?: string }): SongInfo[] {
   );
 
   // songsSung のデータから、歌唱が行われたすべての会場IDの集合を取得
-  const allVenueIdsInSongs = new Set(songsSung.map((record) => record.venueId));
-  // venues.json から、歌唱記録のある会場のみを抽出し、ID順にソートする
-  const relevantVenues = venues
-    .filter((venue) => allVenueIdsInSongs.has(venue.id))
-    .sort((a, b) => Number(a.id) - Number(b.id));
+  const allVenueIdsInSongs = new Set(
+    songsSung.map((setlist) => setlist.venueId),
+  );
+  // venues から、歌唱記録のある会場のみを抽出(配列は時系列順に定義済み)
+  const relevantVenues = venues.filter((venue) =>
+    allVenueIdsInSongs.has(venue.id),
+  );
 
   // songsSung を効率的に検索できるようにMap化(パフォーマンス改善)
   // キー: "songId-venueId", 値: true
   const songsSungMap = new Map<string, boolean>();
-  for (const record of songsSung) {
-    songsSungMap.set(`${record.songId}-${record.venueId}`, true);
+  for (const setlist of songsSung) {
+    for (const songId of setlist.songIds) {
+      songsSungMap.set(`${songId}-${setlist.venueId}`, true);
+    }
   }
 
   // 各曲について、参加して歌唱された会場に対して ◯ を、その他は - を付与する
   return songs.map((song) => {
     let count = 0;
-    // songData の型を Partial<Record<keyof SongInfo, string | number>> に変更
-    const songData: Partial<Record<keyof SongInfo, string | number>> = {
+    const songData: SongInfo = {
       name: song.title,
       count: 0,
     };
 
     // for...of を使用してループ処理を実施
     for (const venue of relevantVenues) {
-      // venue.json の shortId プロパティを利用してキーを生成(存在しなければ name をフォールバック)
-      const rawKey = venue.shortId ? venue.shortId : venue.name;
       const isSung = songsSungMap.has(`${song.id}-${venue.id}`);
       if (participatedVenueIdsSet.has(venue.id) && isSung) {
-        songData[rawKey as keyof SongInfo] = '◯';
+        songData[venue.id] = '◯';
         count += 1;
       }
     }
     songData.count = count;
-    return songData as SongInfo;
+    return songData;
   });
 }

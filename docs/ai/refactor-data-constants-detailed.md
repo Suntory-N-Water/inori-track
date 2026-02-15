@@ -16,27 +16,27 @@ Step 2 (venues.ts) ──┤
                      └──→ Step 4 (SongInfo型)    ──→ 完了
 ```
 
-- **Step 1 と Step 2 は並列実行可能**: 触るフィールドが完全に独立（songId vs venueId/shortId）
+- **Step 1 と Step 2 は並列実行可能**: 触るフィールドが完全に独立(songId vs venueId/shortId)
 - **Step 3 は Step 1 + Step 2 の両方が前提**: songsSung.ts は song スラッグと venue スラッグの両方を使う
-- **Step 4 は Step 2 だけが前提**: SongInfo のキーが venue ID（ケバブケース）に変わるため
+- **Step 4 は Step 2 だけが前提**: SongInfo のキーが venue ID(ケバブケース)に変わるため
 - **Step 3 と Step 4 の並列は避ける**: 両方とも `utils.ts` の `getSongsData` を変更するためコンフリクトする
 
 ### 最短クリティカルパス
 
 ```
-Step 1 + Step 2（並列） → Step 3 → Step 4
+Step 1 + Step 2(並列) → Step 3 → Step 4
 ```
 
-所要ステップ数: 3段階（直列換算で4ステップ分の作業を3段階に圧縮可能）
+所要ステップ数: 3段階(直列換算で4ステップ分の作業を3段階に圧縮可能)
 
-### 実施スコープ（決定済み）
+### 実施スコープ(決定済み)
 
-**全Step実施**: `Step 1 + Step 2（並列）→ Step 3 → Step 4`（3段階）
+**全Step実施**: `Step 1 + Step 2(並列)→ Step 3 → Step 4`(3段階)
 
 | 対応 | Step | 必要性 |
 |---|---|---|
 | venues shortId 未対応の解消 + 新規会場の反映 | Step 2 | **必須** |
-| SongInfo 型の動的化 | Step 4 | **推奨（拡張性）** |
+| SongInfo 型の動的化 | Step 4 | **推奨(拡張性)** |
 | songs.ts の可読性向上 | Step 1 | 実施する |
 | songsSung.ts の構造改善 | Step 3 | 実施する |
 
@@ -46,12 +46,12 @@ Step 1 + Step 2（並列） → Step 3 → Step 4
 
 ### 1. `venues.ts` の shortId 未対応
 
-venues 48〜51（町民集会2025の4会場）が全て同一の `shortId: 'chomin2025Cinema'` を持つ。
+venues 48〜51(町民集会2025の4会場)が全て同一の `shortId: 'chomin2025Cinema'` を持つ。
 これにより `getSongsData` で異なる会場のデータが同一キーに上書きされ、テーブル上で区別できない。
-（町民集会2025は4会場あり、shortIdが未分化の状態。新アーキテクチャで各会場にユニークなスラッグを振ることで自然に解消される。）
+(町民集会2025は4会場あり、shortIdが未分化の状態。新アーキテクチャで各会場にユニークなスラッグを振ることで自然に解消される。)
 
 ```ts
-// 現在: 4つの異なる会場が同じ shortId（未対応状態）
+// 現在: 4つの異なる会場が同じ shortId(未対応状態)
 { id: '48', name: '埼玉昼公演', shortId: 'chomin2025Cinema' }
 { id: '49', name: '埼玉夜公演', shortId: 'chomin2025Cinema' }
 { id: '50', name: '大阪',       shortId: 'chomin2025Cinema' }
@@ -74,7 +74,7 @@ venue の `id` がスラッグになると `Number()` で `NaN` になり、ソ�
 
 ### 4. `songsSung.ts` のデータ規模
 
-- 全 865 レコード（id: '1' 〜 '865'）
+- 全 865 レコード(id: '1' 〜 '865')
 - 52 会場分のセットリスト
 - 平均 約16.6 曲/会場
 
@@ -84,10 +84,10 @@ venue の `id` がスラッグになると `Number()` で `NaN` になり、ソ�
 
 ### TODO
 
-- [ ] `src/data/songs.ts` の全89曲の `id` をスラッグに変更
-- [ ] `src/test/app/(list)/result/page.test.tsx` のモックデータを更新
-- [ ] `pnpm run test` 通過を確認
-- [ ] `pnpm run ai-check` 通過を確認
+- [x] `src/data/songs.ts` の全89曲の `id` をスラッグに変更
+- [x] `src/test/app/(list)/result/page.test.tsx` のモックデータを更新
+- [x] `pnpm run test` 通過を確認
+- [x] `pnpm run ai-check` 通過を確認
 
 ### スラッグ生成ルール
 
@@ -96,12 +96,12 @@ venue の `id` がスラッグになると `Number()` で `NaN` になり、ソ�
 | 英語のみ | そのまま kebab-case | `Dreaming Girls` → `dreaming-girls` |
 | 日本語のみ | ヘボン式ローマ字で kebab-case | `コイセヨオトメ` → `koiseyootome` |
 | 日本語+記号 | ローマ字化し、記号は除去 | `まっすぐに、トウメイに。` → `massuguni-toumeini` |
-| 混在（英語+日本語） | そのまま混在で kebab-case | `風色Letter` → `kazeiro-letter` |
-| 記号含み（！等） | 記号は除去 | `Catch the Rainbow！` → `catch-the-rainbow` |
+| 混在(英語+日本語) | そのまま混在で kebab-case | `風色Letter` → `kazeiro-letter` |
+| 記号含み(！等) | 記号は除去 | `Catch the Rainbow！` → `catch-the-rainbow` |
 
 ### 全89曲のスラッグマッピング
 
-| 現ID | title | 新ID（スラッグ） |
+| 現ID | title | 新ID(スラッグ) |
 |---|---|---|
 | 1 | くらりのうた | kurari-no-uta |
 | 2 | While We Walk | while-we-walk |
@@ -223,25 +223,25 @@ venue の `id` がスラッグになると `Number()` で `NaN` になり、ソ�
 
 ### TODO
 
-- [ ] `src/data/venues.ts` の全52会場の `id` をスラッグに変更
-- [ ] `src/data/venues.ts` の `shortId` フィールドを全て削除
-- [ ] 会場48〜51の shortId 未対応を解消（個別スラッグを付与）
-- [ ] コメントアウトされている会場（53〜59）のIDもスラッグ形式に変換
-- [ ] `src/lib/utils.ts` の `getSongsData`: `venue.shortId` → `venue.id` に変更
-- [ ] `src/lib/utils.ts` の `getSongsData`: `.sort((a, b) => Number(a.id) - Number(b.id))` を削除
-- [ ] `src/components/features/report/columns.tsx` の `accessorKey` をケバブケースに更新
-- [ ] `src/components/features/report/columns.tsx` に新規会場5列を追加
-- [ ] `src/test/app/(list)/venue/page.test.tsx` のモックデータを更新（任意）
-- [ ] `pnpm run test` 通過を確認
-- [ ] `pnpm run ai-check` 通過を確認
+- [x] `src/data/venues.ts` の全52会場の `id` をスラッグに変更
+- [x] `src/data/venues.ts` の `shortId` フィールドを全て削除
+- [x] 会場48〜51の shortId 未対応を解消(個別スラッグを付与)
+- [x] コメントアウトされている会場(53〜59)のIDもスラッグ形式に変換
+- [x] `src/lib/utils.ts` の `getSongsData`: `venue.shortId` → `venue.id` に変更
+- [x] `src/lib/utils.ts` の `getSongsData`: `.sort((a, b) => Number(a.id) - Number(b.id))` を削除
+- [x] `src/components/features/report/columns.tsx` の `accessorKey` をケバブケースに更新
+- [x] `src/components/features/report/columns.tsx` に新規会場5列を追加
+- [x] `src/test/app/(list)/venue/page.test.tsx` のモックデータを更新(任意)
+- [x] `pnpm run test` 通過を確認
+- [x] `pnpm run ai-check` 通過を確認
 
 ### shortId → ケバブケース変換ルール
 
-既存の `shortId`（キャメルケース）をケバブケースに変換し、`id` として使用する。
+既存の `shortId`(キャメルケース)をケバブケースに変換し、`id` として使用する。
 
 ### 全52会場のスラッグマッピング
 
-| 現ID | name | liveNameId | 現shortId | 新ID（スラッグ） |
+| 現ID | name | liveNameId | 現shortId | 新ID(スラッグ) |
 |---|---|---|---|---|
 | 1 | 東京 | 1st-live-ready-steady-go | rsgTokyo | rsg-tokyo |
 | 2 | 愛知 | live-tour-2018-blue-compass | bcAichi | bc-aichi |
@@ -296,9 +296,9 @@ venue の `id` がスラッグになると `Number()` で `NaN` になり、ソ�
 | 51 | 仙台 | inorimachi-town-meeting-2025-acoustic-live-cinemati-diary- | chomin2025Cinema | chomin-2025-sendai |
 | 52 | 兵庫 | live-tour-2025-travel-record | trHyogo | tr-hyogo |
 
-**注意**: 会場48〜51は現状 `shortId` が未分化（全て `chomin2025Cinema`）。このStepで個別のスラッグIDを付与し、解消する。
+**注意**: 会場48〜51は現状 `shortId` が未分化(全て `chomin2025Cinema`)。このStepで個別のスラッグIDを付与し、解消する。
 
-### コメントアウトされている会場（53〜59）
+### コメントアウトされている会場(53〜59)
 
 ```ts
 // live-tour-2025-travel-record の未公演分
@@ -350,7 +350,7 @@ const relevantVenues = venues
 /report?venue_id=sa-hyogo,sa-miyagi,sa-aichi
 ```
 
-既存の共有URLは破壊される（元計画で許容済み）。
+既存の共有URLは破壊される(元計画で許容済み)。
 
 ### 影響を受けるが変更不要なファイル
 
@@ -364,7 +364,7 @@ const relevantVenues = venues
 ### Venue 型の変更
 
 ```ts
-// 変更前（src/types.ts 由来ではなく venues.ts の実データ構造）
+// 変更前(src/types.ts 由来ではなく venues.ts の実データ構造)
 type VenueData = {
   id: string;
   name: string;
@@ -380,7 +380,7 @@ type VenueData = {
 };
 ```
 
-`src/types.ts` の `Venue` 型（`{ id: string; name: string }`）は変更不要。`shortId` はここに含まれていない。
+`src/types.ts` の `Venue` 型(`{ id: string; name: string }`)は変更不要。`shortId` はここに含まれていない。
 
 ### テスト
 
@@ -393,19 +393,19 @@ type VenueData = {
 
 ### TODO
 
-- [ ] 変換スクリプトを作成（一時利用、コミットしない）
-- [ ] `src/data/songsSung.ts` を865レコード → 約52セットリストに再構成
-- [ ] 変換後データの検証: `songsSung.flatMap(s => s.songIds).length === 865`
-- [ ] 変換後データの検証: `songsSung.length === 52`
-- [ ] `src/lib/utils.ts` の `getResultSongs`: `.map(s => s.songId)` → `.flatMap(s => s.songIds)`
-- [ ] `src/lib/utils.ts` の `getSongsData`: `songsSungMap` の構築をネストループに変更
-- [ ] `pnpm run test` 通過を確認
-- [ ] `pnpm run ai-check` 通過を確認
+- [x] 変換スクリプトを作成(一時利用、コミットしない)
+- [x] `src/data/songsSung.ts` を865レコード → 約52セットリストに再構成
+- [x] 変換後データの検証: `songsSung.flatMap(s => s.songIds).length === 865`
+- [x] 変換後データの検証: `songsSung.length === 52`
+- [x] `src/lib/utils.ts` の `getResultSongs`: `.map(s => s.songId)` → `.flatMap(s => s.songIds)`
+- [x] `src/lib/utils.ts` の `getSongsData`: `songsSungMap` の構築をネストループに変更
+- [x] `pnpm run test` 通過を確認
+- [x] `pnpm run ai-check` 通過を確認
 
 ### 前提条件
 
-- Step 1（song ID スラッグ化）完了済み
-- Step 2（venue ID スラッグ化）完了済み
+- Step 1(song ID スラッグ化)完了済み
+- Step 2(venue ID スラッグ化)完了済み
 
 ### データ構造の変更
 
@@ -417,7 +417,7 @@ export const songsSung = [
   // ... 865エントリ
 ];
 
-// 変更後: 会場ごとのセットリスト（約52エントリ）
+// 変更後: 会場ごとのセットリスト(約52エントリ)
 export const songsSung = [
   {
     liveNameId: '1st-live-ready-steady-go',
@@ -436,7 +436,7 @@ export const songsSung = [
 ### 型定義
 
 ```ts
-// 新しい型（src/data/songsSung.ts 内、または別途定義）
+// 新しい型(src/data/songsSung.ts 内、または別途定義)
 type Setlist = {
   liveNameId: string;
   venueId: string;
@@ -449,16 +449,16 @@ type Setlist = {
 
 ### 削除されるフィールド
 
-- `id`（連番）: セットリスト単位では不要
+- `id`(連番): セットリスト単位では不要
 - 個別の `songId`: `songIds` 配列に統合
 
 ### 残すフィールド
 
-- `liveNameId`: `venueId` から `venues.ts` 経由で逆引き可能だが、可読性のために残す（元計画の方針）
+- `liveNameId`: `venueId` から `venues.ts` 経由で逆引き可能だが、可読性のために残す(元計画の方針)
 
 ### `songIds` の配列順序
 
-歌唱順（セトリ順）を保持する。将来的に「セトリ順表示」機能を追加できる設計余地を残す。
+歌唱順(セトリ順)を保持する。将来的に「セトリ順表示」機能を追加できる設計余地を残す。
 
 ### 変更対象ファイル
 
@@ -510,8 +510,8 @@ for (const setlist of songsSung) {
 
 変換後のデータの正しさを以下で検証する：
 
-1. **レコード数の保存**: `songsSung.flatMap(s => s.songIds).length === 865`（変換前の総レコード数）
-2. **会場数の保存**: `songsSung.length === 52`（venueId のユニーク数）
+1. **レコード数の保存**: `songsSung.flatMap(s => s.songIds).length === 865`(変換前の総レコード数)
+2. **会場数の保存**: `songsSung.length === 52`(venueId のユニーク数)
 3. **テスト**: 既存の `getResultSongs` / `getSongsData` テストが同じ結果を返すこと
 
 ---
@@ -520,16 +520,16 @@ for (const setlist of songsSung) {
 
 ### TODO
 
-- [ ] `src/types.ts` の `SongInfo` 型をインデックスシグネチャに変更
-- [ ] `src/lib/utils.ts` の `getSongsData`: `as keyof SongInfo` キャストを解消
-- [ ] `src/lib/utils.ts` の `getSongsData`: `songData` の型定義を簡素化
-- [ ] `src/test/components/SongsDataTable.test.tsx` のモックデータを新型に合わせて更新
-- [ ] `pnpm run test` 通過を確認
-- [ ] `pnpm run ai-check` 通過を確認
+- [x] `src/types.ts` の `SongInfo` 型をインデックスシグネチャに変更
+- [x] `src/lib/utils.ts` の `getSongsData`: `as keyof SongInfo` キャストを解消
+- [x] `src/lib/utils.ts` の `getSongsData`: `songData` の型定義を簡素化
+- [x] `src/test/components/SongsDataTable.test.tsx` のモックデータを新型に合わせて更新
+- [x] `pnpm run test` 通過を確認
+- [x] `pnpm run ai-check` 通過を確認
 
 ### 現状の問題
 
-`SongInfo` 型に 48 個の会場プロパティが列挙されている（`src/types.ts:30-80`）。
+`SongInfo` 型に 48 個の会場プロパティが列挙されている(`src/types.ts:30-80`)。
 新しい会場を追加するたびに型定義の更新が必要。
 
 ### 変更内容
@@ -559,7 +559,7 @@ export type SongInfo = {
 // 変更前 (src/lib/utils.ts:80)
 songData[rawKey as keyof SongInfo] = '◯';
 
-// 変更後（Step 2 で venue.shortId → venue.id に変更済み）
+// 変更後(Step 2 で venue.shortId → venue.id に変更済み)
 songData[venue.id] = '◯';
 ```
 
@@ -576,15 +576,15 @@ const songData: SongInfo = {
 };
 ```
 
-### `columns.tsx` への影響（スコープ外）
+### `columns.tsx` への影響(スコープ外)
 
-`columns.tsx` はこのStepでは変更しない（元計画の方針）。
+`columns.tsx` はこのStepでは変更しない(元計画の方針)。
 
-ただし、`accessorKey` がキャメルケース（`rsgTokyo` など）からケバブケース（`rsg-tokyo` など）に変わるため、**Step 2 完了後に `columns.tsx` の `accessorKey` もケバブケースに更新する必要がある**。
+ただし、`accessorKey` がキャメルケース(`rsgTokyo` など)からケバブケース(`rsg-tokyo` など)に変わるため、**Step 2 完了後に `columns.tsx` の `accessorKey` もケバブケースに更新する必要がある**。
 
 これは元計画で「スコープ外」とされている列ヘッダー略称の変更とは別問題。`accessorKey` が `SongInfo` のキーと一致しなくなるため、動作が壊れる。
 
-### `columns.tsx` の `accessorKey` 更新（Step 2 の追加作業として必須）
+### `columns.tsx` の `accessorKey` 更新(Step 2 の追加作業として必須)
 
 ```ts
 // 変更前
@@ -594,7 +594,7 @@ const songData: SongInfo = {
 { accessorKey: 'rsg-tokyo', header: 'RSG東京' },
 ```
 
-全列の `accessorKey` をケバブケースに変更。`header`（表示名）は変更しない。
+全列の `accessorKey` をケバブケースに変更。`header`(表示名)は変更しない。
 
 **加えて、新規会場の列を追加する**:
 ```ts
@@ -609,40 +609,40 @@ const songData: SongInfo = {
 
 - `SongsDataTable.test.tsx` のモックデータを `SongInfo` の新しい型に合わせて更新
   - 48個の個別プロパティ → 任意の `[venueId: string]` キーに変更
-  - テストの本質（テーブル描画、フィルタ、行の色分け）には影響なし
+  - テストの本質(テーブル描画、フィルタ、行の色分け)には影響なし
 
 ---
 
-## Step 5: テスト修正（各Step横断）
+## Step 5: テスト修正(各Step横断)
 
 ### テストファイル一覧と影響
 
 | テストファイル | 影響するStep | 必要な変更 |
 |---|---|---|
 | `src/test/app/(list)/live/page.test.tsx` | なし | `liveNames` のデータ構造は変更しないため影響なし |
-| `src/test/app/(list)/venue/page.test.tsx` | Step 2 | モックデータの `venue.id` をスラッグに更新（任意。モック値なので動作影響なし） |
+| `src/test/app/(list)/venue/page.test.tsx` | Step 2 | モックデータの `venue.id` をスラッグに更新(任意。モック値なので動作影響なし) |
 | `src/test/app/(list)/result/page.test.tsx` | Step 1 | モックデータの `song.id` をスラッグに更新 |
 | `src/test/components/SongsDataTable.test.tsx` | Step 4 | モックデータの `SongInfo` を新型に更新 |
 | `src/test/app/page.test.tsx` | なし | `liveNames` の表示テストのみ。影響なし |
 
 ### 各Stepごとのテスト実行タイミング
 
-元計画では Step 5 として最後にまとめる方針だが、TDD方針（CLAUDE.md）に従い、**各Step完了時にテストを修正・実行する**のが望ましい。
+元計画では Step 5 として最後にまとめる方針だが、TDD方針(CLAUDE.md)に従い、**各Step完了時にテストを修正・実行する**のが望ましい。
 
 - **Step 1 完了時**: `pnpm run test` で `result/page.test.tsx` を確認
-- **Step 2 完了時**: `pnpm run test` で全テスト通過を確認（`getSongsData` のソート変更含む）
+- **Step 2 完了時**: `pnpm run test` で全テスト通過を確認(`getSongsData` のソート変更含む)
 - **Step 3 完了時**: `pnpm run test` で `getResultSongs` / `getSongsData` の動作確認
 - **Step 4 完了時**: `pnpm run test` で `SongsDataTable.test.tsx` の型変更確認
-- **全Step完了時**: `pnpm run ai-check`（lint + 型チェック）で最終確認
+- **全Step完了時**: `pnpm run ai-check`(lint + 型チェック)で最終確認
 
 ---
 
 ## 実施順序と依存関係の詳細
 
-### 全Step実施の場合（推奨）
+### 全Step実施の場合(推奨)
 
 ```
-段階1（並列実行可能）:
+段階1(並列実行可能):
   ┌─ Step 1: songs.ts スラッグ化
   │    変更: songs.ts のみ
   │    テスト: result/page.test.tsx のモック更新
@@ -650,24 +650,24 @@ const songData: SongInfo = {
   │
   └─ Step 2: venues.ts スラッグ化 + shortId 廃止
        変更: venues.ts, utils.ts (getSongsData), columns.tsx (accessorKey)
-       テスト: venue/page.test.tsx のモック更新（任意）
+       テスト: venue/page.test.tsx のモック更新(任意)
        対応: venues 48-51 の shortId 未対応を解消
        検証: pnpm run test && pnpm run ai-check
          ↓
 段階2:
-  Step 3: songsSung.ts 構造変更（Step 1 + Step 2 前提）
+  Step 3: songsSung.ts 構造変更(Step 1 + Step 2 前提)
     変更: songsSung.ts, utils.ts (getResultSongs, getSongsData)
     テスト: 変換後データの件数検証
     検証: pnpm run test && pnpm run ai-check
          ↓
 段階3:
-  Step 4: SongInfo 型の動的化（Step 2 前提。Step 3 と utils.ts が競合するため直列）
+  Step 4: SongInfo 型の動的化(Step 2 前提。Step 3 と utils.ts が競合するため直列)
     変更: types.ts, utils.ts (キャスト解消)
     テスト: SongsDataTable.test.tsx のモック更新
     検証: pnpm run test && pnpm run ai-check
 ```
 
-### ~~MVPのみの場合~~（不採用）
+### ~~MVPのみの場合~~(不採用)
 
 全Step実施で決定済みのため、MVPのみの実施パスは使用しない。
 
@@ -675,7 +675,7 @@ const songData: SongInfo = {
 
 ## GAS・スプレッドシートについて
 
-- GASは別管理（このリポジトリ外）
+- GASは別管理(このリポジトリ外)
 - スプレッドシートのデータ構造は現在のTSファイルと同じフラット構造で、GASはそれをそのままTSに出力しているだけ
 - 本リファクタリング完了後、TSファイルを直接編集する運用に切り替え、スプレッドシート→GAS→貼り付けの運用フローを廃止する
 - GAS側の調整は本リファクタリングのスコープ外
@@ -692,11 +692,11 @@ const songData: SongInfo = {
 ### 2. `columns.tsx` と `SongInfo` のキー整合性
 
 Step 2 で venue ID がケバブケースになると、`columns.tsx` の `accessorKey` と `getSongsData` が返す `SongInfo` のキーが不一致になる。
-**Step 2 の作業範囲に `columns.tsx` の `accessorKey` 更新を含める必要がある**（元計画ではスコープ外としていたが、`accessorKey` の変更は機能維持に必須）。
+**Step 2 の作業範囲に `columns.tsx` の `accessorKey` 更新を含める必要がある**(元計画ではスコープ外としていたが、`accessorKey` の変更は機能維持に必須)。
 
 ### 3. ヘッダー略称は変更しない
 
-`columns.tsx` の `header`（`'RSG東京'`, `'BC愛知'` 等）は変更しない。これは元計画通りスコープ外。
+`columns.tsx` の `header`(`'RSG東京'`, `'BC愛知'` 等)は変更しない。これは元計画通りスコープ外。
 
 ### 4. `songsSung.ts` の変換精度
 
@@ -704,11 +704,11 @@ Step 2 で venue ID がケバブケースになると、`columns.tsx` の `acces
 
 ### 5. NEXT_PUBLIC_SPOILER_VENUE_ID 環境変数
 
-この環境変数に設定されているのは `liveNameId`（ライブ名のID）であり、`venue.id` ではない。
+この環境変数に設定されているのは `liveNameId`(ライブ名のID)であり、`venue.id` ではない。
 `LiveCheckBoxForm.tsx:34` で `params.find((param) => param.id === spoilerVenueId)` と比較しており、`params` は `LiveName[]` 型。
 よって venue ID のスラッグ化はこの機能に影響しない。
 
 ### 6. 型のエクスポート構造
 
 `src/data/index.ts` は `export * from './songsSung'` で再エクスポートしている。
-`songsSung` の型が変わっても export 文自体は変更不要。ただし、利用側（`utils.ts`）でのプロパティアクセスは変更が必要。
+`songsSung` の型が変わっても export 文自体は変更不要。ただし、利用側(`utils.ts`)でのプロパティアクセスは変更が必要。

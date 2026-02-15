@@ -16,6 +16,8 @@
     "lint:unsafe-fix": "biome lint --write --unsafe .",
     "lint:ai": "biome lint --reporter=github . 2>&1 | { grep '^::' || true; }",
     "type-check": "pnpm -r exec tsc --noEmit",
+    "test": "vitest run",
+    "ai-check": "pnpm run lint:ai && pnpm run type-check:ai",
     "type-check:ai": "pnpm -r exec tsc --noEmit --pretty false"
   },
   "dependencies": {

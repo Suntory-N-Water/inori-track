@@ -1,358 +1,358 @@
 export const songs = [
   {
-    id: '1',
+    id: 'kurari-no-uta',
     title: 'くらりのうた',
   },
   {
-    id: '2',
+    id: 'while-we-walk',
     title: 'While We Walk',
   },
   {
-    id: '3',
+    id: 'scrap-art',
     title: 'スクラップアート',
   },
   {
-    id: '4',
+    id: 'iolite',
     title: 'アイオライト',
   },
   {
-    id: '5',
+    id: 'identity',
     title: 'identity',
   },
   {
-    id: '6',
+    id: 'aimaimoko',
     title: 'アイマイモコ',
   },
   {
-    id: '7',
+    id: 'akaneiro-nostalgia',
     title: '茜色ノスタルジア',
   },
   {
-    id: '8',
+    id: 'anohi-no-sora-e',
     title: 'あの日の空へ',
   },
   {
-    id: '9',
+    id: 'arpeggio',
     title: 'アルペジオ',
   },
   {
-    id: '10',
+    id: 'itsumo-zutto',
     title: 'いつもずっと',
   },
   {
-    id: '11',
+    id: 'innocent-flower',
     title: 'Innocent flower',
   },
   {
-    id: '12',
+    id: 'ima-wo-boku-rashiku',
     title: '今を僕らしく生きてくために',
   },
   {
-    id: '13',
+    id: 'will',
     title: 'Will',
   },
   {
-    id: '14',
+    id: 'winter-wonder-wander',
     title: 'Winter Wonder Wander',
   },
   {
-    id: '15',
+    id: 'we-are-the-music',
     title: 'We Are The Music',
   },
   {
-    id: '16',
+    id: 'well-wishing-word',
     title: 'Well Wishing Word',
   },
   {
-    id: '17',
+    id: 'unmei-no-akai-ito',
     title: '運命の赤い糸',
   },
   {
-    id: '18',
+    id: 'egao-ga-niau-hi',
     title: '笑顔が似合う日',
   },
   {
-    id: '19',
+    id: 'omoide-no-kakera',
     title: '思い出のカケラ',
   },
   {
-    id: '20',
+    id: 'kazeiro-letter',
     title: '風色Letter',
   },
   {
-    id: '21',
+    id: 'kitty-cat-adventure',
     title: 'Kitty Cat Adventure',
   },
   {
-    id: '22',
+    id: 'kimiiro-prologue',
     title: '君色プロローグ',
   },
   {
-    id: '23',
+    id: 'catch-the-rainbow',
     title: 'Catch the Rainbow！',
   },
   {
-    id: '24',
+    id: 'crystallize',
     title: 'クリスタライズ',
   },
   {
-    id: '25',
+    id: 'kutasuta',
     title: 'クータスタ',
   },
   {
-    id: '26',
+    id: 'glow',
     title: 'glow',
   },
   {
-    id: '27',
+    id: 'koiseyootome',
     title: 'コイセヨオトメ',
   },
   {
-    id: '28',
+    id: 'kokoro-somari',
     title: 'ココロソマリ',
   },
   {
-    id: '29',
+    id: 'kokoro-tsukamaete',
     title: '心つかまえて',
   },
   {
-    id: '30',
+    id: 'kokoro-wa-merry-go-round',
     title: 'ココロはMerry-Go-Round',
   },
   {
-    id: '31',
+    id: 'korekaramo',
     title: 'これからも。',
   },
   {
-    id: '32',
+    id: 'sangatsu-to-gunjou',
     title: '三月と群青',
   },
   {
-    id: '33',
+    id: 'cinematic-diary',
     title: 'シネマチックダイアリー',
   },
   {
-    id: '34',
+    id: 'shoo-bee-doo-wap-wap',
     title: 'Shoo-Bee-Doo-Wap-Wap!',
   },
   {
-    id: '35',
+    id: 'suisai-memory',
     title: '水彩メモリー',
   },
   {
-    id: '36',
+    id: 'sweet-melody',
     title: 'Sweet Melody',
   },
   {
-    id: '37',
+    id: 'starlight-museum',
     title: 'Starlight Museum',
   },
   {
-    id: '38',
+    id: 'starry-wish',
     title: 'Starry Wish',
   },
   {
-    id: '39',
+    id: 'step-up',
     title: 'Step Up！',
   },
   {
-    id: '40',
+    id: 'snow-white',
     title: 'Snow White',
   },
   {
-    id: '41',
+    id: 'sorairo',
     title: 'ソライロ',
   },
   {
-    id: '42',
+    id: 'tabi-no-tochuu',
     title: '旅の途中',
   },
   {
-    id: '43',
+    id: 'trust-in-eternity',
     title: 'TRUST IN ETERNITY',
   },
   {
-    id: '44',
+    id: 'dreaming-girls',
     title: 'Dreaming Girls',
   },
   {
-    id: '45',
+    id: 'natsu-no-yakusoku',
     title: '夏の約束',
   },
   {
-    id: '46',
+    id: 'natsuyume',
     title: '夏夢',
   },
   {
-    id: '47',
+    id: 'namida-no-atowa',
     title: '涙のあとは',
   },
   {
-    id: '48',
+    id: 'hachigatsu-no-souvenir',
     title: '八月のスーベニア',
   },
   {
-    id: '49',
+    id: 'happy-birthday',
     title: 'Happy Birthday',
   },
   {
-    id: '50',
+    id: 'harusora',
     title: '春空',
   },
   {
-    id: '51',
+    id: 'hello-horizon',
     title: 'HELLO HORIZON',
   },
   {
-    id: '52',
+    id: 'heart-no-iro',
     title: 'ハートノイロ',
   },
   {
-    id: '53',
+    id: 'harmony-ribbon',
     title: 'harmony ribbon',
   },
   {
-    id: '54',
+    id: 'paleotopia',
     title: 'パレオトピア',
   },
   {
-    id: '55',
+    id: 'pure-frame',
     title: 'ピュアフレーム',
   },
   {
-    id: '56',
+    id: 'future-seeker',
     title: 'Future Seeker',
   },
   {
-    id: '57',
+    id: 'blue-compass',
     title: 'BLUE COMPASS',
   },
   {
-    id: '58',
+    id: 'brave-climber',
     title: 'brave climber',
   },
   {
-    id: '59',
+    id: 'hoshikuzu-no-contrail',
     title: '星屑のコントレイル',
   },
   {
-    id: '60',
+    id: 'bokura-dake-no-kodou',
     title: '僕らだけの鼓動',
   },
   {
-    id: '61',
+    id: 'bokura-wa-ima',
     title: '僕らは今',
   },
   {
-    id: '62',
+    id: 'my-graffiti',
     title: 'My Graffiti',
   },
   {
-    id: '63',
+    id: 'million-futures',
     title: 'Million Futures',
   },
   {
-    id: '64',
+    id: 'melty-night',
     title: 'Melty night',
   },
   {
-    id: '65',
+    id: 'melody-flag',
     title: 'MELODY FLAG',
   },
   {
-    id: '66',
+    id: 'morning-prism',
     title: 'Morning Prism',
   },
   {
-    id: '67',
+    id: 'yakusoku-no-asterism',
     title: '約束のアステリズム',
   },
   {
-    id: '68',
+    id: 'yume-no-tsubomi',
     title: '夢のつぼみ',
   },
   {
-    id: '69',
+    id: 'lucky-clover',
     title: 'Lucky Clover',
   },
   {
-    id: '70',
+    id: 'real-eyes',
     title: 'REAL-EYES',
   },
   {
-    id: '71',
+    id: 'little-shoegazer',
     title: 'リトルシューゲイザー',
   },
   {
-    id: '72',
+    id: 'ring-of-smile',
     title: 'Ring of Smile',
   },
   {
-    id: '73',
+    id: 'ready-steady-go',
     title: 'Ready Steady Go!',
   },
   {
-    id: '74',
+    id: 'wonder-caravan',
     title: 'Wonder Caravan！',
   },
   {
-    id: '75',
+    id: 'massuguni-toumeini',
     title: 'まっすぐに、トウメイに。',
   },
   {
-    id: '76',
+    id: 'loop-slider-cider',
     title: 'Loop Slider Cider',
   },
   {
-    id: '77',
+    id: 'milky-star',
     title: 'Milky Star',
   },
   {
-    id: '78',
+    id: 'heart-bookmark',
     title: 'heart bookmark',
   },
   {
-    id: '79',
+    id: 'fragum',
     title: 'フラーグム',
   },
   {
-    id: '80',
+    id: 'hoshitone',
     title: 'ほしとね、',
   },
   {
-    id: '81',
+    id: 'gradation',
     title: 'グラデーション',
   },
   {
-    id: '82',
+    id: 'tourou-kouchuu',
     title: '燈籠光柱',
   },
   {
-    id: '83',
+    id: 'turquoise',
     title: 'Turquoise',
   },
   {
-    id: '84',
+    id: 'yume-no-tsuzuki',
     title: '夢のつづき',
   },
   {
-    id: '85',
+    id: 'mada-iwanaide',
     title: 'まだ、言わないで。',
   },
   {
-    id: '86',
+    id: 'anniversary',
     title: 'アニバーサリー',
   },
   {
-    id: '87',
+    id: 'next-decade',
     title: 'NEXT DECADE',
   },
   {
-    id: '88',
+    id: 'my-orchestra',
     title: 'My Orchestra',
   },
   {
-    id: '89',
+    id: 'umifumi-no-spica',
     title: '海踏みのスピカ',
   },
 ];

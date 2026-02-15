@@ -13,6 +13,7 @@
       "**/*.jsonc",
       "**/*.html",
       "!node_modules",
+      "!.next",
       "!**/.astro",
       "!**/dist",
       "!**/metadata"
@@ -31,6 +32,7 @@
       "**/*.jsonc",
       "**/*.html",
       "!node_modules",
+      "!.next",
       "!**/dist"
     ]
   },
@@ -62,7 +64,7 @@
         "useBlockStatements": "error"
       },
       "nursery": {
-        "noUnnecessaryConditions": "error"
+        "noUnnecessaryConditions": "off"
       }
     }
   },

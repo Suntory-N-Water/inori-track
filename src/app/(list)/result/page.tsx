@@ -19,11 +19,8 @@ async function currentUrl(): Promise<string> {
   if (!host) {
     throw new Error('host is not defined');
   }
-  const prefix = process.env.HTTP_PREFIX;
-  if (!prefix) {
-    throw new Error('HTTP_PREFIX is not set');
-  }
-  return prefix + host;
+  const proto = headersList.get('x-forwarded-proto') ?? 'http';
+  return `${proto}://${host}`;
 }
 
 export async function generateMetadata({
