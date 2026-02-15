@@ -1,3 +1,4 @@
+/** 楽曲マスタデータ */
 export const songs = [
   {
     id: 'kurari-no-uta',
@@ -355,4 +356,6 @@ export const songs = [
     id: 'umifumi-no-spica',
     title: '海踏みのスピカ',
   },
-];
+] as const;
+
+export type SongId = (typeof songs)[number]['id'];

@@ -13,7 +13,7 @@ export default function Home() {
           <p className='py-2'>
             今すぐ始めるを押したあと、自分が参加したライブ名と会場名を選ぶことで、まだ聴いたことのない曲を一覧で表示することができます。
           </p>
-          <Link href='/live'>
+          <Link href='/select'>
             <Button className='w-full items-center justify-center p-6 my-4 tracking-tight'>
               今すぐ始める！
             </Button>
@@ -33,7 +33,7 @@ export default function Home() {
           <div className='py-2'>
             <strong>Q. 対象のライブを教えてください。</strong>
             <p className='py-1'>
-              現在(2025年10月12日時点)は以下のライブ、町民集会が対象になっております。
+              現在(2026年2月15日時点)は以下のライブ、町民集会が対象になっております。
             </p>
             <ul className='list-disc list-outside ml-6'>
               {liveNames.map((liveName) => (

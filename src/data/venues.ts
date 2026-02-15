@@ -1,3 +1,10 @@
+import type { LiveNameId } from './liveNames';
+
+/**
+ * 会場マスタデータ
+ * 注意: 配列の順序はビットマスクエンコーディング(venueEncoding.ts)で使用されるため、
+ * 既存要素の並び替え・削除は禁止。新会場は末尾に追加すること。
+ */
 export const venues = [
   {
     id: 'rsg-tokyo',
@@ -259,39 +266,45 @@ export const venues = [
     name: '兵庫',
     liveNameId: 'live-tour-2025-travel-record',
   },
-  // {
-  //   id: 'tr-shizuoka',
-  //   name: '静岡',
-  //   liveNameId: 'live-tour-2025-travel-record',
-  // },
-  // {
-  //   id: 'tr-fukuoka',
-  //   name: '福岡',
-  //   liveNameId: 'live-tour-2025-travel-record',
-  // },
-  // {
-  //   id: 'tr-okayama',
-  //   name: '岡山',
-  //   liveNameId: 'live-tour-2025-travel-record',
-  // },
-  // {
-  //   id: 'tr-hokkaido',
-  //   name: '北海道',
-  //   liveNameId: 'live-tour-2025-travel-record',
-  // },
-  // {
-  //   id: 'tr-aichi',
-  //   name: '愛知',
-  //   liveNameId: 'live-tour-2025-travel-record',
-  // },
-  // {
-  //   id: 'tr-kanagawa-1',
-  //   name: '神奈川1日目',
-  //   liveNameId: 'live-tour-2025-travel-record',
-  // },
-  // {
-  //   id: 'tr-kanagawa-2',
-  //   name: '神奈川2日目',
-  //   liveNameId: 'live-tour-2025-travel-record',
-  // },
-];
+  {
+    id: 'tr-shizuoka',
+    name: '静岡',
+    liveNameId: 'live-tour-2025-travel-record',
+  },
+  {
+    id: 'tr-fukuoka',
+    name: '福岡',
+    liveNameId: 'live-tour-2025-travel-record',
+  },
+  {
+    id: 'tr-okayama',
+    name: '岡山',
+    liveNameId: 'live-tour-2025-travel-record',
+  },
+  {
+    id: 'tr-hokkaido',
+    name: '北海道',
+    liveNameId: 'live-tour-2025-travel-record',
+  },
+  {
+    id: 'tr-aichi',
+    name: '愛知',
+    liveNameId: 'live-tour-2025-travel-record',
+  },
+  {
+    id: 'tr-kanagawa-1',
+    name: '神奈川1日目',
+    liveNameId: 'live-tour-2025-travel-record',
+  },
+  {
+    id: 'tr-kanagawa-2',
+    name: '神奈川2日目',
+    liveNameId: 'live-tour-2025-travel-record',
+  },
+] as const satisfies readonly {
+  id: string;
+  name: string;
+  liveNameId: LiveNameId;
+}[];
+
+export type VenueId = (typeof venues)[number]['id'];

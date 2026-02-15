@@ -56,4 +56,11 @@ export const columns: ColumnDef<SongInfo>[] = [
   { accessorKey: 'chomin-2025-osaka', header: '町25大阪' },
   { accessorKey: 'chomin-2025-sendai', header: '町25仙台' },
   { accessorKey: 'tr-hyogo', header: 'TR兵庫' },
+  { accessorKey: 'tr-shizuoka', header: 'TR静岡' },
+  { accessorKey: 'tr-fukuoka', header: 'TR福岡' },
+  { accessorKey: 'tr-okayama', header: 'TR岡山' },
+  { accessorKey: 'tr-hokkaido', header: 'TR北海道' },
+  { accessorKey: 'tr-aichi', header: 'TR愛知' },
+  { accessorKey: 'tr-kanagawa-1', header: 'TR神奈1' },
+  { accessorKey: 'tr-kanagawa-2', header: 'TR神奈2' },
 ];

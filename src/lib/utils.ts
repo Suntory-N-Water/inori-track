@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { notFound } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { songs, songsSung, venues } from '@/data';
+import { resolveVenueIdsFromParams } from '@/lib/venueEncoding';
 import type { SongInfo } from '@/types';
 
 export function cn(...inputs: ClassValue[]) {
@@ -10,12 +11,13 @@ export function cn(...inputs: ClassValue[]) {
 
 type Props = {
   searchParams?: {
+    v?: string;
     venue_id?: string;
   };
 };
 
 export function getResultSongs({ searchParams }: Props) {
-  const venueIdsQuery = searchParams?.venue_id || '';
+  const venueIdsQuery = resolveVenueIdsFromParams(searchParams ?? {});
 
   // クエリパラメータが設定されていない場合は、404 ページを表示
   if (!venueIdsQuery) {
@@ -39,13 +41,17 @@ export function getResultSongs({ searchParams }: Props) {
  * @param queryParams - クエリパラメータ(例: { venue_id: "21,22,23" })
  * @returns SongInfo[] - テーブル表示用のデータ配列
  */
-export function getSongsData(queryParams: { venue_id?: string }): SongInfo[] {
-  if (!queryParams.venue_id) {
+export function getSongsData(queryParams: {
+  v?: string;
+  venue_id?: string;
+}): SongInfo[] {
+  const venueIdsCsv = resolveVenueIdsFromParams(queryParams);
+  if (!venueIdsCsv) {
     throw new Error('会場IDが指定されていません');
   }
   // ユーザーが参加した会場IDの配列を生成し、Set化(パフォーマンス改善)
   const participatedVenueIdsSet = new Set(
-    queryParams.venue_id.split(',').map((id) => id.trim()),
+    venueIdsCsv.split(',').map((id) => id.trim()),
   );
 
   // songsSung のデータから、歌唱が行われたすべての会場IDの集合を取得
