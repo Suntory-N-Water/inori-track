@@ -28,7 +28,7 @@ jobs:
       - uses: ./.github/actions/setup
       - run: pnpm run lint
 
-  typecheck:
+  type-check:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     permissions:
@@ -38,7 +38,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - run: pnpm run typecheck
+      - run: pnpm run type-check
 
   build:
     timeout-minutes: 5
