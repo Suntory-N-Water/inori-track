@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        zen: ['"Zen Kaku Gothic New"', 'sans-serif'],
+        biorhyme: ['BioRhyme', 'serif'],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -25,6 +29,9 @@ const config = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         baseblack: 'hsl(var(--base-black))',
+        heading: 'hsl(var(--heading))',
+        'section-bg': 'hsl(var(--section-bg))',
+        mint: 'hsl(var(--mint))',
         blue20: 'hsl(var(--blue-20))',
         blue30: 'hsl(var(--blue-30))',
         primary: {
@@ -85,7 +92,7 @@ const config = {
             height: '0',
           },
         },
-        'fade-in-bottom': {
+        'fade-in-up': {
           '0%': {
             transform: 'translateY(20px)',
             opacity: '0',
@@ -99,8 +106,8 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in-bottom':
-          'fade-in-bottom 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000)',
+        'fade-in-up':
+          'fade-in-up 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both',
       },
     },
   },

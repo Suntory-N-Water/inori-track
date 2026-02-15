@@ -1,12 +1,15 @@
 import Link from 'next/link';
+import ClearSelection from '@/components/features/home/ClearSelection';
 import { Button } from '@/components/ui/button';
+import FadeIn from '@/components/ui/FadeIn';
 import { liveNames } from '@/data';
 
 export default function Home() {
   return (
-    <div className='relative min-h-screen flex flex-col'>
-      <div className='flex flex-col flex-1'>
-        <div className='flex flex-col'>
+    <div className='relative min-h-screen flex flex-col gap-8'>
+      <ClearSelection />
+      <FadeIn>
+        <div className='rounded-2xl bg-white/80 p-6 shadow-sm'>
           <p className='py-2'>
             いのなびは水瀬いのりさんのライブで、まだ聴いたことのない曲を見つけることできるサービスです
           </p>
@@ -14,26 +17,29 @@ export default function Home() {
             今すぐ始めるを押したあと、自分が参加したライブ名と会場名を選ぶことで、まだ聴いたことのない曲を一覧で表示することができます。
           </p>
           <Link href='/select'>
-            <Button className='w-full items-center justify-center p-6 my-4 tracking-tight'>
-              今すぐ始める！
+            <Button className='w-full items-center justify-center p-6 my-4 tracking-tight hover:scale-[1.02]'>
+              今すぐ始める
             </Button>
           </Link>
         </div>
-        <div className='w-full bg-white rounded-t-3xl flex-1'>
-          <h1 className='text-xl md:text-2xl font-bold text-primary-foreground'>
+      </FadeIn>
+
+      <FadeIn delay={100}>
+        <div className='w-full rounded-2xl bg-section-bg p-6'>
+          <h2 className='text-xl md:text-2xl font-bold text-heading'>
             よくある質問
-          </h1>
-          <div className='py-2'>
+          </h2>
+          <div className='py-3 border-b border-border/50'>
             <strong>Q. ネタバレは含みますか？</strong>
             <p className='py-1'>
               A.
               一部会場(ライブツアー期間中)であれば、ネタバレを含む場合がございますが、必ず確認メッセージが表示されます。
             </p>
           </div>
-          <div className='py-2'>
+          <div className='py-3'>
             <strong>Q. 対象のライブを教えてください。</strong>
             <p className='py-1'>
-              現在(2026年2月15日時点)は以下のライブ、町民集会が対象になっております。
+              現在(2026年2月15日時点)は以下のライブ、町民集会が対象です。
             </p>
             <ul className='list-disc list-outside ml-6'>
               {liveNames.map((liveName) => (
@@ -43,15 +49,15 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          <div className='py-4'>
+          <div className='pt-4'>
             <Link href='/contact'>
-              <p className='text-primary-foreground hover:underline'>
+              <p className='text-heading hover:text-primary hover:underline transition-colors duration-300'>
                 お問い合わせはこちらからどうぞ。ご質問やご意見をお待ちしております。
               </p>
             </Link>
           </div>
         </div>
-      </div>
+      </FadeIn>
     </div>
   );
 }

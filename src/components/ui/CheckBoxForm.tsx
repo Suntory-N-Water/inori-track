@@ -34,7 +34,10 @@ export default function CheckBoxList<TItem>({
           control={form.control}
           name={name}
           render={({ field }) => (
-            <FormItem key={itemKey(item)} className='space-x-3 py-2'>
+            <FormItem
+              key={itemKey(item)}
+              className='space-x-3 py-2 px-3 rounded-xl hover:bg-section-bg/50 transition-colors duration-200 cursor-pointer'
+            >
               <FormControl>
                 <Checkbox
                   checked={field.value?.includes(itemKey(item))}

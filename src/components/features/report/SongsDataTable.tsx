@@ -53,7 +53,7 @@ export function SongsDataTable({ data }: Props) {
           className='max-w-sm'
         />
       </div>
-      <div className='overflow-x-auto rounded-md border'>
+      <div className='overflow-x-auto rounded-2xl border border-border shadow-sm'>
         <Table className='min-w-[1000px]'>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -62,9 +62,8 @@ export function SongsDataTable({ data }: Props) {
                   <TableHead
                     key={header.id}
                     className={
-                      // 見出しセルが透けないよう bg-white などで固定
                       header.column.id === 'name'
-                        ? 'sticky left-0 z-20 bg-white'
+                        ? 'sticky left-0 z-20 bg-section-bg'
                         : ''
                     }
                   >
@@ -82,11 +81,10 @@ export function SongsDataTable({ data }: Props) {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
-                // count が 0 以上の場合は背景色を青くする
                 const rowClasses =
                   row.original.count > 0
                     ? 'bg-blue20 hover:bg-blue30'
-                    : 'bg-white hover:bg-slate-50';
+                    : 'bg-background hover:bg-section-bg';
 
                 return (
                   <TableRow key={row.id} className={rowClasses}>
@@ -114,7 +112,7 @@ export function SongsDataTable({ data }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results. - お探しの曲が見つかりませんでした🤔
+                  No results. - お探しの曲が見つかりませんでした
                 </TableCell>
               </TableRow>
             )}
