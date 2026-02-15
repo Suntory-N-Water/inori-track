@@ -53,6 +53,6 @@ describe('SongsDataTable', () => {
     const row1 = screen.getByText('夢のつぼみ').closest('tr');
     const row2 = screen.getByText('アイマイモコ').closest('tr');
     expect(row1).toHaveClass('bg-blue20');
-    expect(row2).toHaveClass('bg-white');
+    expect(row2).toHaveClass('bg-background');
   });
 });

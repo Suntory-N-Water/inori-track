@@ -1,3 +1,4 @@
+import { ClipboardList } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SongsDataTable } from '@/components/features/report/SongsDataTable';
@@ -25,8 +26,12 @@ export default async function Home({ searchParams }: Props) {
     <div className='relative min-h-screen flex flex-col'>
       <div className='flex flex-col flex-1'>
         <div className='flex flex-col'>
-          <h1 className='text-xl md:text-2xl font-bold text-primary-foreground'>
-            ライブで聴いたことのある曲一覧📝
+          <h1 className='text-xl md:text-2xl font-bold text-heading flex items-center gap-2'>
+            <ClipboardList
+              className='h-6 w-6 text-primary'
+              aria-hidden='true'
+            />
+            ライブで聴いたことのある曲一覧
           </h1>
           <p className='py-2'>
             あなたが参加したライブで、聴いたことのある曲の一覧と回数を確認できます。

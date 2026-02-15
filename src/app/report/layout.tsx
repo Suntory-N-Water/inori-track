@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Props) {
   return (
     <div className='container-wrapper'>
-      <div className='container py-6 px-2 text-baseblack'>{children}</div>
+      <div className='container py-6 px-2 text-baseblack animate-fade-in-up'>
+        {children}
+      </div>
     </div>
   );
 }

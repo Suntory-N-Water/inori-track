@@ -6,8 +6,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import CheckBoxList from '@/components/ui/CheckBoxForm';
+import FadeIn from '@/components/ui/FadeIn';
 import { Form, FormItem, FormLabel } from '@/components/ui/form';
 import Popup from '@/components/ui/popup';
+import { SELECTION_STORAGE_KEY } from '@/lib/storage';
 import { encodeVenueIds } from '@/lib/venueEncoding';
 import type { FormValues, LiveName, Venue } from '@/types';
 
@@ -17,8 +19,6 @@ type Props = {
   liveNames: readonly LiveName[];
   venues: readonly VenueWithLiveNameId[];
 };
-
-const STORAGE_KEY = 'inori-track-selection';
 
 type StoredSelection = {
   liveIds: string[];
@@ -48,7 +48,7 @@ export default function SelectWizard({ liveNames, venues }: Props) {
       return;
     }
     isRestoredRef.current = true;
-    const stored = sessionStorage.getItem(STORAGE_KEY);
+    const stored = sessionStorage.getItem(SELECTION_STORAGE_KEY);
     if (stored) {
       const parsed: StoredSelection = JSON.parse(stored);
       liveForm.setValue('items', parsed.liveIds);
@@ -108,7 +108,7 @@ export default function SelectWizard({ liveNames, venues }: Props) {
       liveIds: selectedLiveIds,
       venueIds: selectedVenueIds,
     };
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
+    sessionStorage.setItem(SELECTION_STORAGE_KEY, JSON.stringify(selection));
 
     const encoded = encodeVenueIds(selectedVenueIds);
     router.push(`/result?v=${encoded}`);
@@ -133,54 +133,73 @@ export default function SelectWizard({ liveNames, venues }: Props) {
   const hasSelectedVenues = selectedVenueIds.length > 0;
 
   return (
-    <div>
+    <div className='space-y-6'>
       <Form {...liveForm}>
         <FormItem>
-          <div className='mt-4 mb-2'>
-            <FormLabel className='font-bold text-xl'>
-              水瀬いのり個人名義
-            </FormLabel>
-          </div>
-          <CheckBoxList<LiveName>
-            form={liveForm}
-            name='items'
-            items={inoriMinaseLives}
-            itemKey={(item) => item.id}
-            itemLabel={(item) => item.name}
-          />
-          <div className='mt-4 mb-2'>
-            <FormLabel className='font-bold text-xl'>町民集会</FormLabel>
-          </div>
-          <CheckBoxList<LiveName>
-            form={liveForm}
-            name='items'
-            items={townMeetingLives}
-            itemKey={(item) => item.id}
-            itemLabel={(item) => item.name}
-          />
+          <FadeIn>
+            <div className='rounded-2xl bg-white/80 p-5 shadow-sm'>
+              <div className='mb-3'>
+                <FormLabel className='font-bold text-xl text-heading'>
+                  水瀬いのり個人名義
+                </FormLabel>
+              </div>
+              <CheckBoxList<LiveName>
+                form={liveForm}
+                name='items'
+                items={inoriMinaseLives}
+                itemKey={(item) => item.id}
+                itemLabel={(item) => item.name}
+              />
+            </div>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <div className='rounded-2xl bg-white/80 p-5 shadow-sm'>
+              <div className='mb-3'>
+                <FormLabel className='font-bold text-xl text-heading'>
+                  町民集会
+                </FormLabel>
+              </div>
+              <CheckBoxList<LiveName>
+                form={liveForm}
+                name='items'
+                items={townMeetingLives}
+                itemKey={(item) => item.id}
+                itemLabel={(item) => item.name}
+              />
+            </div>
+          </FadeIn>
         </FormItem>
       </Form>
 
       {selectedLivesWithVenues.length > 0 && (
-        <div className='mt-8 border-t pt-6'>
-          <h2 className='pb-4 font-bold text-xl'>参加した会場を選ぼう</h2>
+        <div className='mt-8 pt-6 border-t border-primary/20'>
+          <h2 className='pb-4 font-bold text-xl text-heading'>
+            参加した会場を選ぼう
+          </h2>
           <Form {...venueForm}>
-            {selectedLivesWithVenues.map((liveInfo) => (
-              <fieldset key={liveInfo.liveId} aria-label={liveInfo.liveName}>
-                <div className='mt-4 mb-2'>
-                  <FormLabel className='font-bold text-lg'>
-                    {liveInfo.liveName}
-                  </FormLabel>
-                </div>
-                <CheckBoxList<Venue>
-                  form={venueForm}
-                  name='items'
-                  items={liveInfo.venues}
-                  itemKey={(item) => item.id}
-                  itemLabel={(item) => item.name}
-                />
-              </fieldset>
-            ))}
+            <div className='space-y-4'>
+              {selectedLivesWithVenues.map((liveInfo, index) => (
+                <FadeIn key={liveInfo.liveId} delay={index * 80}>
+                  <fieldset
+                    aria-label={liveInfo.liveName}
+                    className='rounded-2xl bg-white/80 p-5 shadow-sm'
+                  >
+                    <div className='mb-3'>
+                      <FormLabel className='font-bold text-lg text-heading'>
+                        {liveInfo.liveName}
+                      </FormLabel>
+                    </div>
+                    <CheckBoxList<Venue>
+                      form={venueForm}
+                      name='items'
+                      items={liveInfo.venues}
+                      itemKey={(item) => item.id}
+                      itemLabel={(item) => item.name}
+                    />
+                  </fieldset>
+                </FadeIn>
+              ))}
+            </div>
           </Form>
         </div>
       )}
@@ -188,7 +207,7 @@ export default function SelectWizard({ liveNames, venues }: Props) {
       <div className='mt-6'>
         <Button
           variant='default'
-          className='w-full items-center justify-center p-6 mt-6 mb-2 tracking-tight'
+          className='w-full items-center justify-center p-6 mt-6 mb-2 tracking-tight hover:scale-[1.02]'
           disabled={!hasSelectedVenues}
           onClick={handleSubmit}
         >

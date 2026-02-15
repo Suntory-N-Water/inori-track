@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import { Music } from 'lucide-react';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
@@ -76,8 +77,9 @@ export default async function Home({ searchParams }: Props) {
       {unsungSongs.length === 0 ? (
         ''
       ) : (
-        <h1 className='pb-4 font-bold text-2xl'>
-          ライブで聴いたことのない曲一覧♪✨️
+        <h1 className='pb-4 font-bold text-2xl text-heading flex items-center gap-2'>
+          <Music className='h-6 w-6 text-primary' aria-hidden='true' />
+          ライブで聴いたことのない曲一覧
         </h1>
       )}
       <ResultInfo params={unsungSongs} url={url} />

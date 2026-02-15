@@ -75,13 +75,13 @@ describe('ResultInfoのテスト', () => {
     expect(linkElement).toHaveAttribute('href', '/');
   });
 
-  it('未聴の曲がない場合、"全ての曲をライブで聴きました！おめでとうございます🎉"と表示されること', () => {
+  it('未聴の曲がない場合、"全ての曲をライブで聴きました！おめでとうございます"と表示されること', () => {
     const unsungSongs: { id: string; title: string }[] = [];
 
     render(<ResultInfo params={unsungSongs} url={mockUrl} />);
 
     expect(
-      screen.getByText('全ての曲をライブで聴きました！おめでとうございます🎉'),
+      screen.getByText('全ての曲をライブで聴きました！おめでとうございます'),
     ).toBeInTheDocument();
   });
 
