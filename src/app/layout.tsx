@@ -6,6 +6,9 @@ import Header from './Header';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://inori-track.vercel.app/'),
+  verification: {
+    google: '2NaTAzXRvlPPJ_Srd1FXlqnV9h0Zle7tJrpQnCYJJBI',
+  },
   title: {
     template: '%s - いのなび',
     default: 'いのなび',
